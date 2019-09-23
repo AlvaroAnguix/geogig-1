@@ -40,11 +40,16 @@ public class PGRefDatabaseTest extends RefDatabaseTest {
     Environment mainEnvironment;
 
     protected @Override RefDatabase createDatabase(Platform platform) throws Exception {
+        try {
         mainEnvironment = testConfig.getEnvironment();
         PGStorage.createNewRepo(mainEnvironment);
         URI uri = mainEnvironment.toURI();
         Hints hints = new Hints().uri(uri);
         return new PGRefDatabase(hints);
+        }catch(NullPointerException e ) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Test

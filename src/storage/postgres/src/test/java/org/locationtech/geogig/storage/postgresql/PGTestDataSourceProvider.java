@@ -53,12 +53,13 @@ public class PGTestDataSourceProvider extends ExternalResource {
     }
 
     public @Override void after() {
-        connectionConfig = null;
         closeDataSource();
+        connectionConfig = null;
     }
 
     public void closeDataSource() {
         if (dataSource != null) {
+            System.out.println("<<<< Closing datasource for " + connectionConfig.toString());
             PGStorage.closeDataSource(dataSource);
             dataSource = null;
         }
@@ -67,6 +68,7 @@ public class PGTestDataSourceProvider extends ExternalResource {
     public synchronized DataSource getDataSource() {
         Preconditions.checkNotNull(connectionConfig);
         if (dataSource == null) {
+            System.out.println(">>>> Creating datasource for " + connectionConfig.toString());
             dataSource = PGStorage.newDataSource(connectionConfig);
         }
         return dataSource;
