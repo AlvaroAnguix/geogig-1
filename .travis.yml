@@ -42,7 +42,7 @@ before_script:
   - echo 'password = ' >> ~/.geogig-pg-tests.properties
 
 script:
-  - ./mvnw --no-transfer-progress verify -Dfmt.skip=true -Ppostgres,experimental
+  - ./mvnw --no-transfer-progress verify -Dfmt.skip=true -Ppostgres,experimental -pl metadata,storage/postgres
 
 notifications:
   email: false
